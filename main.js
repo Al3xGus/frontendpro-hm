@@ -1,8 +1,11 @@
 
-var number1 = parseFloat(prompt("Введите первое число:"));
-var number2 = parseFloat(prompt("Введите второе число:"));
-var number3 = parseFloat(prompt("Введите третье число:"));
+var num1 = parseFloat(prompt("Введите первое число:"));
 
-var average = (number1 + number2 + number3) / 3;
+var num2 = parseFloat(prompt("Введите второе число:"));
 
-alert("Среднее арифметическое: " + average);
+alert(
+    num1 + " + " + num2 + " = " + (num1 + num2) + "\n" +
+    num1 + " - " + num2 + " = " + (num1 - num2) + "\n" +
+    num1 + " * " + num2 + " = " + (num1 * num2) + "\n" +
+    num1 + " / " + num2 + " = " + (num1 / num2)
+);
