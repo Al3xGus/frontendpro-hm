@@ -1,30 +1,20 @@
-var operation = prompt("Введите операцию: (add, sub, mult, div):");
+let numOrStr = prompt('input number or string');
+console.log(numOrStr);
 
-var num1 = parseFloat(prompt("Введите первое число:"));
+switch (true) {
+    case (numOrStr === null):
+        console.log('Вы отменили');
+        break;
 
-var num2 = parseFloat(prompt("Введите второе число:"));
+    case (numOrStr.trim() === ''):
+        console.log('Empty String');
+        break;
 
-switch (operation) {
-    case "add":
-        var result = num1 + num2;
-        alert(num1 + " + " + num2 + " = " + result);
+    case (isNaN(+numOrStr)):
+        console.log('number is Ba_NaN');
         break;
-    case "sub":
-        var result = num1 - num2;
-        alert(num1 + " - " + num2 + " = " + result);
-        break;
-    case "mult":
-        var result = num1 * num2;
-        alert(num1 + " * " + num2 + " = " + result);
-        break;
-    case "div":
-        if (num2 !== 0) {
-            var result = num1 / num2;
-            alert(num1 + " / " + num2 + " = " + result);
-        } else {
-            alert("Деление на ноль невозможно.");
-        }
-        break;
+
     default:
-        alert("Пожалуйста, введите корректную операцию.");
+        console.log('OK!');
+        break;
 }
