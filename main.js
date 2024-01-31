@@ -1,15 +1,15 @@
-function generateKey(length, characters) {
-    let result = '';
-    const charactersLength = characters.length;
+function powerRecursive(num, degree) {
 
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * charactersLength);
-        result += characters.charAt(randomIndex);
+    if (degree === 0) {
+        return 1;
     }
 
-    return result;
+    else {
+        return num * powerRecursive(num, degree - 1);
+    }
 }
 
-const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
-const key = generateKey(16, characters);
-console.log(key);
+const number = 2;
+const exponent = 3;
+const result = powerRecursive(number, exponent);
+console.log(`${number}^${exponent} = ${result}`);
