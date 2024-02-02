@@ -1,14 +1,14 @@
-let users = [
-    // ваш массив объектов
-];
+function createSumFunction() {
+    let total = 0;
 
-// Фильтрация пользователей с балансом более 2000 долларов
-let usersWithHighBalance = users.filter(user => parseFloat(user.balance.replace('$', '').replace(',', '')) > 2000);
+    return function(value) {
+        total += value;
+        return total;
+    };
+}
 
-// Вывод массива телефонных номеров пользователей с высоким балансом
-let phoneNumbers = usersWithHighBalance.map(user => user.phone);
-console.log("Телефонные номера пользователей с балансом более 2000 долларов:", phoneNumbers);
+const sum = createSumFunction();
 
-// Вычисление суммы всех балансов пользователей
-let totalBalance = users.reduce((sum, user) => sum + parseFloat(user.balance.replace('$', '').replace(',', '')), 0);
-console.log("Общий баланс всех пользователей:", totalBalance.toFixed(2));
+console.log(sum(3));   // 3
+console.log(sum(5));   // 8
+console.log(sum(20));  // 28
