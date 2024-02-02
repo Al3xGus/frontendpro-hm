@@ -1,15 +1,14 @@
-function powerRecursive(num, degree) {
+let users = [
+    // ваш массив объектов
+];
 
-    if (degree === 0) {
-        return 1;
-    }
+// Фильтрация пользователей с балансом более 2000 долларов
+let usersWithHighBalance = users.filter(user => parseFloat(user.balance.replace('$', '').replace(',', '')) > 2000);
 
-    else {
-        return num * powerRecursive(num, degree - 1);
-    }
-}
+// Вывод массива телефонных номеров пользователей с высоким балансом
+let phoneNumbers = usersWithHighBalance.map(user => user.phone);
+console.log("Телефонные номера пользователей с балансом более 2000 долларов:", phoneNumbers);
 
-const number = 2;
-const exponent = 3;
-const result = powerRecursive(number, exponent);
-console.log(`${number}^${exponent} = ${result}`);
+// Вычисление суммы всех балансов пользователей
+let totalBalance = users.reduce((sum, user) => sum + parseFloat(user.balance.replace('$', '').replace(',', '')), 0);
+console.log("Общий баланс всех пользователей:", totalBalance.toFixed(2));
