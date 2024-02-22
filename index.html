@@ -3,87 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Slider</title>
     <style>
-        #slider-container {
-            position: relative;
-            width: 500px;
-            overflow: hidden;
-        }
-
-        #image-slider {
+        .smiley-container {
             display: flex;
-            transition: transform 0.5s ease-in-out;
+            justify-content: space-around;
+            margin-top: 20px;
         }
 
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
+        .smiley {
             cursor: pointer;
         }
-
-        #prev-btn {
-            left: 10px;
-        }
-
-        #next-btn {
-            right: 10px;
-        }
     </style>
+    <title>Голосование</title>
 </head>
 <body>
 
-<div id="slider-container">
-    <div id="image-slider">
-        <img src="images/1.png" alt="Image 1">
-        <img src="images/2.png" alt="Image 2">
-        <img src="images/3.png" alt="Image 3">
-    </div>
-    <div id="prev-btn" class="slider-btn" onclick="prevSlide()">❮ Prev</div>
-    <div id="next-btn" class="slider-btn" onclick="nextSlide()">Next ❯</div>
+<div class="smiley-container" id="smileyContainer">
+    <div class="smiley" onclick="vote(0)">😊</div>
+    <div class="smiley" onclick="vote(1)">😄</div>
+    <div class="smiley" onclick="vote(2)">😍</div>
+    <div class="smiley" onclick="vote(3)">😎</div>
+    <div class="smiley" onclick="vote(4)">🥰</div>
+</div>
+
+<div id="voteCounts">
 </div>
 
 <script>
-    let currentIndex = 0;
-    const totalImages = document.querySelectorAll('#image-slider img').length;
-    const slider = document.getElementById('image-slider');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
+    const voteCounts = Array.from({ length: 5 }, () => 0);
 
-    function showHideButtons() {
-        if (currentIndex === 0) {
-            prevBtn.style.display = 'none';
-        } else {
-            prevBtn.style.display = 'block';
-        }
+    function vote(index) {
+        voteCounts[index]++;
+        updateUI();
+    }
 
-        if (currentIndex === totalImages - 1) {
-            nextBtn.style.display = 'none';
-        } else {
-            nextBtn.style.display = 'block';
+    function updateUI() {
+        const smileyContainer = document.getElementById('smileyContainer');
+        const voteCountsContainer = document.getElementById('voteCounts');
+
+        voteCountsContainer.innerHTML = '';
+
+        for (let i = 0; i < voteCounts.length; i++) {
+            const smiley = document.createElement('div');
+            smiley.className = 'smiley';
+            smiley.textContent = '😊';
+
+            smiley.textContent = String.fromCodePoint(0x1F604 + i);
+
+            const count = document.createElement('div');
+            count.textContent = voteCounts[i];
+
+            smiley.addEventListener('click', () => vote(i));
+
+            smileyContainer.appendChild(smiley);
+            voteCountsContainer.appendChild(count);
         }
     }
 
-    function prevSlide() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            slider.style.transform = `translateX(${-currentIndex * 100}%)`;
-        }
-        showHideButtons();
-    }
-
-    function nextSlide() {
-        if (currentIndex < totalImages - 1) {
-            currentIndex++;
-            slider.style.transform = `translateX(${-currentIndex * 100}%)`;
-        }
-        showHideButtons();
-    }
-
-    showHideButtons();
+    updateUI();
 </script>
-
 </body>
 </html>
