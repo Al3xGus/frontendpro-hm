@@ -1,16 +1,8 @@
-// 1
+const imageNames = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg'];
 
-let input1 = prompt("Введите первую строчку:");
-let input2 = prompt("Введите вторую строчку:");
-let input3 = prompt("Введите третью строчку:");
+const randomImageName = imageNames[Math.floor(Math.random() * imageNames.length)];
 
-let result = input1 + " " + input2 + " " + input3;
-console.log(result);
+const imageUrl = `images/${randomImageName}`;
 
-// 2
-
-
-let number = prompt("Введите пятизначное число:");
-
-let digits = number.toString().split("").join(" ");
-console.log(digits);
+const imgElement = document.getElementById('myImage'); // Замініть 'myImage' на ідентифікатор вашого тегу <img>
+imgElement.src = imageUrl;
