@@ -1,13 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица 10x10</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+
+<script>
+    // Создание таблицы и получение элемента body
+    var table = document.createElement('table');
+    var tbody = document.createElement('tbody');
+
+    // Заполнение таблицы числами от 1 до 100
+    var count = 1;
+    for (var i = 0; i < 10; i++) {
+        var row = document.createElement('tr');
+        for (var j = 0; j < 10; j++) {
+            var cell = document.createElement('td');
+            cell.textContent = count;
+            row.appendChild(cell);
+            count++;
+        }
+        tbody.appendChild(row);
+    }
+
+    // Добавление tbody к таблице
+    table.appendChild(tbody);
+
+    // Добавление таблицы к body документа
+    document.body.appendChild(table);
+</script>
 
 </body>
 </html>
