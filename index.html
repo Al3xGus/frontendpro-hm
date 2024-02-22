@@ -1,13 +1,89 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        #slider-container {
+            position: relative;
+            width: 500px;
+            overflow: hidden;
+        }
+
+        #image-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #prev-btn {
+            left: 10px;
+        }
+
+        #next-btn {
+            right: 10px;
+        }
+    </style>
 </head>
 <body>
+
+<div id="slider-container">
+    <div id="image-slider">
+        <img src="images/1.png" alt="Image 1">
+        <img src="images/2.png" alt="Image 2">
+        <img src="images/3.png" alt="Image 3">
+    </div>
+    <div id="prev-btn" class="slider-btn" onclick="prevSlide()">❮ Prev</div>
+    <div id="next-btn" class="slider-btn" onclick="nextSlide()">Next ❯</div>
+</div>
+
+<script>
+    let currentIndex = 0;
+    const totalImages = document.querySelectorAll('#image-slider img').length;
+    const slider = document.getElementById('image-slider');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    function showHideButtons() {
+        if (currentIndex === 0) {
+            prevBtn.style.display = 'none';
+        } else {
+            prevBtn.style.display = 'block';
+        }
+
+        if (currentIndex === totalImages - 1) {
+            nextBtn.style.display = 'none';
+        } else {
+            nextBtn.style.display = 'block';
+        }
+    }
+
+    function prevSlide() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            slider.style.transform = `translateX(${-currentIndex * 100}%)`;
+        }
+        showHideButtons();
+    }
+
+    function nextSlide() {
+        if (currentIndex < totalImages - 1) {
+            currentIndex++;
+            slider.style.transform = `translateX(${-currentIndex * 100}%)`;
+        }
+        showHideButtons();
+    }
+
+    showHideButtons();
+</script>
 
 </body>
 </html>
