@@ -1,34 +1,47 @@
-function getWeather(city) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&APPID=5d066958a60d315387d9492393935c19', true);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var data = JSON.parse(xhr.responseText);
-            displayWeather(data);
-        } else {
-            console.error('Request failed. Status: ' + xhr.status);
-        }
-    };
+const productsData = {
+    category1: [
+        { id: 1, name: 'Product 1', price: 10 },
+        { id: 2, name: 'Product 2', price: 20 }
+    ],
+    category2: [
+        { id: 3, name: 'Product 3', price: 15 },
+        { id: 4, name: 'Product 4', price: 25 }
+    ],
+    category3: [
+        { id: 5, name: 'Product 5', price: 30 },
+        { id: 6, name: 'Product 6', price: 40 }
+    ]
+};
 
-    xhr.onerror = function() {
-        console.error('Request failed');
-    };
+document.addEventListener('DOMContentLoaded', function () {
+    const buyButton = document.getElementById('buyButton');
+    buyButton.addEventListener('click', buy);
 
+    // Initially show categories
+    showProducts('category1');
+});
 
-    xhr.send();
+function showProducts(category) {
+    const productList = document.getElementById('productList');
+    productList.innerHTML = '';
+
+    productsData[category].forEach(product => {
+        const listItem = document.createElement('li');
+        listItem.textContent = product.name;
+        listItem.onclick = () => showProductDetails(product);
+        productList.appendChild(listItem);
+    });
 }
 
-
-function displayWeather(data) {
-    var weatherDiv = document.getElementById('weather');
-    var weatherString = 'Temperature: ' + data.main.temp + '°C<br>';
-    weatherString += 'Pressure: ' + data.main.pressure + ' hPa<br>';
-    weatherString += 'Description: ' + data.weather[0].description + '<br>';
-    weatherString += 'Humidity: ' + data.main.humidity + '%<br>';
-    weatherString += 'Wind Speed: ' + data.wind.speed + ' m/s<br>';
-    weatherString += 'Wind Direction: ' + data.wind.deg + '°<br>';
-    weatherString += '<img src="http://openweathermap.org/img/w/' + data.weather[0].icon + '.png" alt="Weather Icon">';
-    weatherDiv.innerHTML = weatherString;
+function showProductDetails(product) {
+    const details = document.getElementById('details');
+    details.innerHTML = `
+    <p>Name: ${product.name}</p>
+    <p>Price: $${product.price}</p>
+  `;
 }
 
-getWeather('Lviv');
+function buy() {
+    alert('Product purchased!');
+    document.getElementById('details').innerHTML = '';
+}
