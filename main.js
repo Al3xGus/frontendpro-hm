@@ -1,45 +1,54 @@
-class Human {
-    constructor(name, gender) {
-        this.name = name;
-        this.gender = gender;
+// Сущность "Человек"
+class Человек {
+    constructor(имя, возраст) {
+        this.имя = имя;
+        this.возраст = возраст;
+    }
+
+    показатьИнфо() {
+        console.log(`Имя: ${this.имя}, Возраст: ${this.возраст}`);
     }
 }
 
-class Apartment {
-    constructor() {
-        this.residents = [];
+class Автомобиль {
+    constructor(марка, модель, год, номер, владелец) {
+        this.марка = марка;
+        this.модель = модель;
+        this.год = год;
+        this.номер = номер;
+        this.владелец = владелец;
     }
 
-    addResident(human) {
-        this.residents.push(human);
-    }
-}
-
-class House {
-    constructor(maxApartments) {
-        this.apartments = [];
-        this.maxApartments = maxApartments;
-    }
-
-    addApartment(apartment) {
-        if (this.apartments.length < this.maxApartments) {
-            this.apartments.push(apartment);
+    присвоитьВладельца(владелец) {
+        if (владелец.возраст >= 18) {
+            this.владелец = владелец;
         } else {
-            console.log("Cannot add more apartments. Maximum capacity reached.");
+            console.log("Владелец должен быть старше 18 лет.");
+        }
+    }
+
+    показатьИнфо() {
+        console.log(`Марка: ${this.марка}, Модель: ${this.модель}, Год: ${this.год}, Номер: ${this.номер}`);
+        if (this.владелец) {
+            console.log("Информация о владельце:");
+            this.владелец.показатьИнфо();
+        } else {
+            console.log("Этот автомобиль не имеет владельца.");
         }
     }
 }
 
-const person1 = new Human("John", "male");
-const person2 = new Human("Alice", "female");
 
-const apartment1 = new Apartment();
-const apartment2 = new Apartment();
+const человек1 = new Человек("Иван", 25);
+const человек2 = new Человек("Мария", 17);
 
-apartment1.addResident(person1);
-apartment2.addResident(person2);
+const автомобиль1 = new Автомобиль("Toyota", "Camry", 2018, "ВС1234АВ");
+const автомобиль2 = new Автомобиль("Honda", "Accord", 2020, "КА5678ЕН");
 
-const house = new House(2);
+автомобиль1.присвоитьВладельца(человек1); // валидный владелец (старше 18 лет)
+автомобиль2.присвоитьВладельца(человек2); // невалидный владелец (младше 18 лет)
 
-house.addApartment(apartment1);
-house.addApartment(apartment2);
+console.log("Информация об автомобиле 1:");
+автомобиль1.показатьИнфо();
+console.log("\nИнформация об автомобиле 2:");
+автомобиль2.показатьИнфо();
