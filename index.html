@@ -3,9 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student</title>
+    <title>Registration form</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<form id="registration-form">
+    <div>
+        <label for="first-name">Ім'я:</label>
+        <input type="text" id="first-name" name="first-name" required>
+    </div>
+    <div>
+        <label for="last-name">Прізвище:</label>
+        <input type="text" id="last-name" name="last-name" required>
+    </div>
+    <div>
+        <label for="dob">Дата народження:</label>
+        <input type="text" id="dob" name="dob" placeholder="рррр-мм-дд" required>
+    </div>
+    <div>
+        <label>Стать:</label>
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">Чоловіча</label>
+        <input type="radio" id="female" name="gender" value="female" required>
+        <label for="female">Жіноча</label>
+    </div>
+    <div>
+        <label for="city">Місто:</label>
+        <select id="city" name="city" required>
+            <option value="">Виберіть місто</option>
+            <option value="lviv">Львів</option>
+            <option value="kyiv">Київ</option>
+            <option value="kharkiv">Харків</option>
+        </select>
+    </div>
+    <div>
+        <label for="address">Адреса:</label>
+        <textarea id="address" name="address" required></textarea>
+    </div>
+    <div>
+        <label>Мови, якими володіє:</label>
+        <input type="checkbox" id="lang1" name="languages" value="ukr">
+        <label for="lang1">Українська</label>
+        <input type="checkbox" id="lang2" name="languages" value="eng">
+        <label for="lang2">Англійська</label>
+        <input type="checkbox" id="lang3" name="languages" value="rus">
+        <label for="lang3">Російська</label>
+    </div>
+    <button type="submit">Зберегти</button>
+</form>
+
+<div id="table-container"></div>
+
 <script src="main.js"></script>
 </body>
 </html>
