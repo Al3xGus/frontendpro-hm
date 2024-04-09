@@ -1,54 +1,87 @@
-// Сущность "Человек"
-class Человек {
-    constructor(имя, возраст) {
-        this.имя = имя;
-        this.возраст = возраст;
+class Student {
+    constructor(firstName, lastName, birthYear) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthYear = birthYear;
+        this.grades = [];
+        this.attendance = new Array(25).fill(null); // Масив для відвідуваності
     }
 
-    показатьИнфо() {
-        console.log(`Имя: ${this.имя}, Возраст: ${this.возраст}`);
-    }
-}
-
-class Автомобиль {
-    constructor(марка, модель, год, номер, владелец) {
-        this.марка = марка;
-        this.модель = модель;
-        this.год = год;
-        this.номер = номер;
-        this.владелец = владелец;
-    }
-
-    присвоитьВладельца(владелец) {
-        if (владелец.возраст >= 18) {
-            this.владелец = владелец;
+    addGrade(grade) {
+        if (grade >= 0 && grade <= 100) {
+            this.grades.push(grade);
         } else {
-            console.log("Владелец должен быть старше 18 лет.");
+            console.log("Оцінка має бути в діапазоні від 0 до 100.");
         }
     }
 
-    показатьИнфо() {
-        console.log(`Марка: ${this.марка}, Модель: ${this.модель}, Год: ${this.год}, Номер: ${this.номер}`);
-        if (this.владелец) {
-            console.log("Информация о владельце:");
-            this.владелец.показатьИнфо();
+    present() {
+        if (this.attendance.filter(Boolean).length < 25) {
+            this.attendance[this.attendance.findIndex(value => value === null)] = true;
         } else {
-            console.log("Этот автомобиль не имеет владельца.");
+            console.log("Максимальна кількість записів про відвідуваність вже досягнута.");
+        }
+    }
+
+    absent() {
+        if (this.attendance.filter(Boolean).length < 25) {
+            this.attendance[this.attendance.findIndex(value => value === null)] = false;
+        } else {
+            console.log("Максимальна кількість записів про відвідуваність вже досягнута.");
+        }
+    }
+
+    getAge() {
+        const currentYear = new Date().getFullYear();
+        return currentYear - this.birthYear;
+    }
+
+    getAverageGrade() {
+        if (this.grades.length === 0) {
+            return 0;
+        }
+        const sum = this.grades.reduce((acc, grade) => acc + grade, 0);
+        return sum / this.grades.length;
+    }
+
+    summary() {
+        const averageGrade = this.getAverageGrade();
+        const attendancePercentage = this.attendance.filter(Boolean).length / 25;
+
+        if (averageGrade > 90 && attendancePercentage > 0.9) {
+            return "Молодець!";
+        } else if (averageGrade > 90 || attendancePercentage > 0.9) {
+            return "Добре, але можна краще";
+        } else {
+            return "Редиска!";
         }
     }
 }
 
+const student1 = new Student("Іван", "Петров", 1999);
+const student2 = new Student("Марія", "Іванова", 2001);
+const student3 = new Student("Олексій", "Сидоров", 2000);
 
-const человек1 = new Человек("Иван", 25);
-const человек2 = new Человек("Мария", 17);
+student1.addGrade(95);
+student1.addGrade(85);
+student1.present();
+student1.present();
+student1.present();
+student1.absent();
 
-const автомобиль1 = new Автомобиль("Toyota", "Camry", 2018, "ВС1234АВ");
-const автомобиль2 = new Автомобиль("Honda", "Accord", 2020, "КА5678ЕН");
+student2.addGrade(90);
+student2.addGrade(92);
+student2.present();
+student2.present();
+student2.present();
+student2.present();
 
-автомобиль1.присвоитьВладельца(человек1); // валидный владелец (старше 18 лет)
-автомобиль2.присвоитьВладельца(человек2); // невалидный владелец (младше 18 лет)
+student3.addGrade(80);
+student3.addGrade(88);
+student3.present();
+student3.absent();
+student3.present();
 
-console.log("Информация об автомобиле 1:");
-автомобиль1.показатьИнфо();
-console.log("\nИнформация об автомобиле 2:");
-автомобиль2.показатьИнфо();
+console.log(student1.summary()); // Добре, але можна краще
+console.log(student2.summary()); // Молодець!
+console.log(student3.summary()); // Добре, але можна краще
